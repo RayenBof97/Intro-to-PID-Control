@@ -238,3 +238,9 @@ double pid(double error){
 - In high-frequency scenarios, the derivative action can have adverse effects, potentially causing instability in the system. Therefore, it is essential to apply a low-pass filter before implementing the derivative action!
 
 You can plot any variable through *serial.print()* and observe your system feedback to tune it ! 
+
+
+
+
+---------------------------------------------
+Images Sources : Brian Douglas - MATLAB Youtube Channel (Introduction to PID Control)
