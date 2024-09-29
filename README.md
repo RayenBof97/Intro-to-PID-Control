@@ -14,7 +14,10 @@ But can we actually do that with  such a simple system (An open loop system) ?
 The answer to the previous question is NO. As we all know, we don't live in a perfect world, and it's extremely difficult (if not impossible) to achieve the desired output in an open-loop system. For example, imagine you're driving a car and want to maintain a speed of 130 km/h. Various factors, such as driving uphill or on a rocky road, will make it impossible to keep your speed steady at 130 km/h. This is where the closed-loop system comes into play!
 #### Closed-Loop system 
 In the following picture, we can see the closed loop architecture :
+
 ![Image not found](Pasted%20image%2020240927201443.png)
+
+
 As you can see in the closed-loop architecture, we have a feedback path, which in our case consists of sensors. These sensors continuously measure the system's performance, allowing us to calculate the error—essentially, the difference between the actual system output and the desired command from the operator. Our goal is to apply a mathematical model that will drive this error to zero, ensuring that the controlled variable (output) matches the commanded variable (input or desired value).
 ### PID Controller ?
 Remember when we talked about the mathematical model that drives the error to zero? That model is called a controller, and the PID controller is just one example among many types of controllers.
@@ -22,7 +25,14 @@ Remember when we talked about the mathematical model that drives the error to ze
 #### Example : Human Position control 
 Imagine you're standing at the start of a football field, and your goal is to walk 50 meters to reach the center. In this case, your desired position (the input) is 50 meters, you are the plant, and your eyes and senses serve as the feedback mechanism.  
 At t=0, the error is 50 meters, meaning you're far from your goal. Your brain, acting as the controller, processes this information and tells you to walk faster to reduce the error!
-![[Pasted image 20240927203251.png]]
+
+
+
+![Image not found](Pasted%20image%2020240927203251.png)
+
+
+
+
 #### Proportional controller : (P)
 Here, we're setting the controller with a simple proportional gain (P) value of 0.5.  
 At t=0, when the error is at its maximum, our brain (the controller) tells us to move at a speed of 25 meters per minute. As we progress and the error decreases, our speed gradually slows down. This is because the controller continuously adjusts the output in response to the shrinking error.  
