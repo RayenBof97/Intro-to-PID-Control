@@ -136,46 +136,54 @@ As an example, we will develop a PI controller for voltage control. The process 
 
 Now let's code it : 
 ```cpp
-/*Wiring PINS*/
-#define PIN_OUTPUT  3
-#define PIN_INPUT   A0
+/* Wiring PINS */
+#define PIN_OUTPUT  3
+#define PIN_INPUT   A0
 
-/*Regulator PIN*/
-#define Kp          0
-#define Ki          0
+/* Regulator PIN */
+#define Kp          0
+#define Ki          0
 
-unsigned long previousTime,now;
-double dt=0;
-double output,integral,previousError=0;
-double setpoint = 100 ;
+unsigned long previousTime;
+double dt = 0;
+double output, integral = 0, previousError = 0;
+double setpoint = 100;
 
-void setup()
-pinMode(PIN_OUTPUT,OUTPUT);
-analogWrite(PIN_OUTPUT,0);
-previousTime = 0;
+void setup() {
+    pinMode(PIN_OUTPUT, OUTPUT);
+    analogWrite(PIN_OUTPUT, 0);
+    previousTime = millis();
 }
 
-  
-void loop(){
-    now = millis();
-    dt = (now-previousTime)/1000;
-    previousTime=now;
-    double feedback =map(analogRead(PIN_INPUT),0,1024,0,255);
-    double error = setpoint - feedback;
-    output= pid(error):
-	analogWrite(PIN_OUTPUT,output);
-    delay(50);
+void loop() {
+    unsigned long now = millis();
+    dt = (now - previousTime) / 1000.0;
+    previousTime = now;
+
+    double feedback = map(analogRead(PIN_INPUT), 0, 1023, 0, 255);
+    double error = setpoint - feedback;
+
+    output = pid(error);
+    analogWrite(PIN_OUTPUT, output);
+    delay(50);
 }
 
-  
-double pid(double error){
+double pid(double error) {
+    double prop = error;
+    integral += error * dt;
 
-    double prop= error;
-    integral += error * dt ;
-    previousError=error;
-    output = (Kp*prop) + (Ki*integral);
+    previousError = error;
+    output = (Kp * prop) + (Ki * integral);
 
+    if (output > 255) {
+        output = 255;
+    } else if (output < 0) {
+        output = 0; 
+    }
+
+    return output;
 }
+
 ```
 
 We achieved our goal, but not without issues: the signal overshoots when reaching the setpoint, leading to oscillations. These oscillations can be detrimental to our system, so it’s essential to eliminate them. This is where the derivative action comes into play!
@@ -185,48 +193,56 @@ The derivative action in a PID controller plays a crucial role in reducing oscil
 
 Now, let's dive into the coding part:
 ```cpp
-/*Wiring PINS*/
-#define PIN_OUTPUT  3
-#define PIN_INPUT   A0
+/* Wiring PINS */
+#define PIN_OUTPUT  3
+#define PIN_INPUT   A0
 
-/*Regulator PIN*/
-#define Kp          0
-#define Ki          0
+/* Regulator PIN */
+#define Kp          0
+#define Ki          0
 #define Kd          0
 
-unsigned long previousTime,now;
-double dt=0;
-double output,integral,previousError=0;
-double setpoint = 100 ;
+unsigned long previousTime;
+double dt = 0;
+double output, integral = 0, previousError = 0;
+double setpoint = 100;
 
-void setup()
-pinMode(PIN_OUTPUT,OUTPUT);
-analogWrite(PIN_OUTPUT,0);
-previousTime = 0;
+void setup() {
+    pinMode(PIN_OUTPUT, OUTPUT);
+    analogWrite(PIN_OUTPUT, 0);
+    previousTime = millis();
 }
 
-  
-void loop(){
-    now = millis();
-    dt = (now-previousTime)/1000;
-    previousTime=now;
-    double feedback =map(analogRead(PIN_INPUT),0,1024,0,255);
-    double error = setpoint - feedback;
-    output= pid(error):
-	analogWrite(PIN_OUTPUT,output);
-    delay(50);
+void loop() {
+    unsigned long now = millis();
+    dt = (now - previousTime) / 1000.0;
+    previousTime = now;
+
+    double feedback = map(analogRead(PIN_INPUT), 0, 1023, 0, 255);
+    double error = setpoint - feedback;
+
+    output = pid(error);
+    analogWrite(PIN_OUTPUT, output);
+    delay(50);
 }
 
+double pid(double error) {
+    double prop = error;
+    integral += error * dt;
+    double derivative = (error - previousError) / dt;
 
-double pid(double error){
+    previousError = error;
+    output = (Kp * prop) + (Ki * integral) + (Kd * derivative);
 
-    double prop= error;
-    integral += error * dt ;
-    double derivative= (error-previousError)/dt ; 
-    previousError=error;
-    output = (Kp*prop) + (Ki*integral) + (Kd*derivative);
+    if (output > 255) {
+        output = 255;
+    } else if (output < 0) {
+        output = 0; 
+    }
 
+    return output;
 }
+
 ```
 
 
