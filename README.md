@@ -15,7 +15,7 @@ The answer to the previous question is NO. As we all know, we don't live in a pe
 #### Closed-Loop system 
 In the following picture, we can see the closed loop architecture :
 
-![Image not found](Pasted%20image%2020240927201443.png)
+![Image not found](/images/Pasted%20image%2020240927201443.png)
 
 
 As you can see in the closed-loop architecture, we have a feedback path, which in our case consists of sensors. These sensors continuously measure the system's performance, allowing us to calculate the error—essentially, the difference between the actual system output and the desired command from the operator. Our goal is to apply a mathematical model that will drive this error to zero, ensuring that the controlled variable (output) matches the commanded variable (input or desired value).
@@ -28,7 +28,7 @@ At t=0, the error is 50 meters, meaning you're far from your goal. Your brain, a
 
 
 
-![Image not found](Pasted%20image%2020240927203251.png)
+![Image not found](/images/Pasted%20image%2020240927203251.png)
 
 
 
