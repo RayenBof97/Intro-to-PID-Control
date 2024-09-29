@@ -3,6 +3,7 @@ What do we mean by **Control** ? and what is **Control systems** ?
 #### What is Control systems ? 
 We can simplify the term into the following figure :
 ![Image not found](/images/Pasted%20image%2020240927200133.png)
+
 A control system aims to determine and generate the appropriate input to achieve the desired output !
 But can we actually do that with  such a simple system (An open loop system) ? 
 #### Open-Loop system 
