@@ -179,7 +179,7 @@ double pid(double error){
 ```
 
 We achieved our goal, but not without issues: the signal overshoots when reaching the setpoint, leading to oscillations. These oscillations can be detrimental to our system, so it’s essential to eliminate them. This is where the derivative action comes into play!
-![Image Not Found!](Pasted%20image%2020240929124156.png)
+![Image Not Found!](/images/Pasted%20image%2020240929124156.png)
 #### Proportional-Integral-Derivative controller : (PID)
 The derivative action in a PID controller plays a crucial role in reducing oscillations and overshooting as the system approaches the setpoint. It achieves this by responding to the rate of change of the error, predicting future behavior, and applying corrective action accordingly. Essentially, it 'dampens' the system's response, slowing down rapid changes and enabling smoother adjustments. This prevents the system from reacting too aggressively, enhancing its stability and responsiveness to disturbances. By incorporating the derivative action, the controller can anticipate and minimize overshooting before it becomes an issue.
 
