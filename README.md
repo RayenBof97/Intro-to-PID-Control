@@ -14,7 +14,7 @@ But can we actually do that with  such a simple system (An open loop system) ?
 The answer to the previous question is NO. As we all know, we don't live in a perfect world, and it's extremely difficult (if not impossible) to achieve the desired output in an open-loop system. For example, imagine you're driving a car and want to maintain a speed of 130 km/h. Various factors, such as driving uphill or on a rocky road, will make it impossible to keep your speed steady at 130 km/h. This is where the closed-loop system comes into play!
 #### Closed-Loop system 
 In the following picture, we can see the closed loop architecture :
-![[Pasted image 20240927201443.png]]
+![[Pasted%20image%2020240927201443.png]]
 As you can see in the closed-loop architecture, we have a feedback path, which in our case consists of sensors. These sensors continuously measure the system's performance, allowing us to calculate the error—essentially, the difference between the actual system output and the desired command from the operator. Our goal is to apply a mathematical model that will drive this error to zero, ensuring that the controlled variable (output) matches the commanded variable (input or desired value).
 ### PID Controller ?
 Remember when we talked about the mathematical model that drives the error to zero? That model is called a controller, and the PID controller is just one example among many types of controllers.
