@@ -15,6 +15,7 @@ The answer to the previous question is NO. As we all know, we don't live in a pe
 #### Closed-Loop system 
 In the following picture, we can see the closed loop architecture :
 
+
 ![Image not found](/images/Pasted%20image%2020240927201443.png)
 
 
@@ -37,7 +38,12 @@ At t=0, the error is 50 meters, meaning you're far from your goal. Your brain, a
 Here, we're setting the controller with a simple proportional gain (P) value of 0.5.  
 At t=0, when the error is at its maximum, our brain (the controller) tells us to move at a speed of 25 meters per minute. As we progress and the error decreases, our speed gradually slows down. This is because the controller continuously adjusts the output in response to the shrinking error.  
 For a better understanding, take a look at the following graph :
-![[Pasted image 20240927203904.png]]
+
+
+![Image not found](/images/Pasted%20image%2020240927203904.png)
+
+
+
 Enough theory—let's dive into coding! We'll start with a simple Proportional Controller in C/C++ that we can later implement on our microcontroller:
 
 ```cpp
@@ -62,7 +68,10 @@ float Pcontroller(float setpoint, float measurement, float kp) {
 ```
 But keep in mind, we need to carefully choose the right Kp value to maintain system stability.  
 Here’s how the system's response changes based on different Kp values:
-![[Pasted image 20240927223738.png]]
+
+
+![Image not found](/images/Pasted%20image%2020240927223738.png)
+
 
 So, it seems that a simple proportional gain works! Yes, but only in theory :)  
 In a real-life example, like controlling a monowheel robot, as we approach the desired position and the error gets smaller, we might end up sending an insufficient command to the motor (the plant). This happens because the motor won't receive enough power to overcome the torque and friction, eventually causing it to stop before reaching the target. This issue is known as "Steady-State Error" or "Static Error."
@@ -71,7 +80,9 @@ To eliminate this static error, a **proportional-integral (PI) controller** is o
 
 #### Proportional-Integral controller : (PI)
 The integral component we just added utilizes past information to adjust our system toward the desired output!
-![[Pasted image 20240927212046.png]]
+
+![Image not found](/images/Pasted%20image%2020240927212046.png)
+
 The integrator works by accumulating the error over time. If we have a constant error, the integrator will generate a ramp that is added to the output velocity command, helping our system reach the desired position. With the integrator in place, achieving zero error is theoretically possible, but this is under ideal conditions.
 
 In practice, the system may overshoot slightly, resulting in a negative contribution to the integrator. This, in turn, decreases the velocity command, leading to error once again, creating a cycle of oscillation until the system stabilizes. These oscillations can be detrimental, indicating partial instability in the system.
@@ -119,8 +130,9 @@ void loop() {
 
 Now we have all the necessary components to code our PI Controller. We will utilize the concepts we've discussed earlier.  
 As an example, we will develop a PI controller for voltage control. The process works as follows: we will output a PWM signal through one of the pins, which will then pass through an RC filter (acting as the integrator) to smooth the signal. The smoothed output will return to the MCU through an analog pin, allowing us to regulate the voltage effectively!
-![[Pasted image 20240929122911.png]]
-![[Pasted image 20240929122928.png]]
+
+![Image Not Found!](/images/Pasted%20image%2020240929122911.png)
+![Image Not Found!](/images/Pasted%20image%2020240929122928.png)
 
 Now let's code it : 
 ```cpp
@@ -167,7 +179,7 @@ double pid(double error){
 ```
 
 We achieved our goal, but not without issues: the signal overshoots when reaching the setpoint, leading to oscillations. These oscillations can be detrimental to our system, so it’s essential to eliminate them. This is where the derivative action comes into play!
-![[Pasted image 20240929124156.png]]
+![Image Not Found!](Pasted%20image%2020240929124156.png)
 #### Proportional-Integral-Derivative controller : (PID)
 The derivative action in a PID controller plays a crucial role in reducing oscillations and overshooting as the system approaches the setpoint. It achieves this by responding to the rate of change of the error, predicting future behavior, and applying corrective action accordingly. Essentially, it 'dampens' the system's response, slowing down rapid changes and enabling smoother adjustments. This prevents the system from reacting too aggressively, enhancing its stability and responsiveness to disturbances. By incorporating the derivative action, the controller can anticipate and minimize overshooting before it becomes an issue.
 
